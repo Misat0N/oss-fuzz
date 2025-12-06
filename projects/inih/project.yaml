@@ -1,6 +1,6 @@
-homepage: "https://github.com/benhoyt/inih"
+homepage: "https://github.com/Misat0N/inih"
 language: c
-primary_contact: "benhoyt@gmail.com"
+primary_contact: "articussnagato@gmail.com"
 auto_ccs:
   - "pkillarjun@protonmail.com"
 fuzzing_engines:
@@ -9,6 +9,5 @@ fuzzing_engines:
   - honggfuzz
 sanitizers:
   - address
-  - memory
   - undefined
-main_repo: 'https://github.com/benhoyt/inih'
+main_repo: 'https://github.com/Misat0N/inih'
