@@ -16,6 +16,9 @@
 ################################################################################
 
 set -o pipefail
+
+: "${LDFLAGS:=}"
+
 cp /src/inihfuzz.c .
 
 # Compile the fuzzer binary for oss-fuzz infrastructure.
