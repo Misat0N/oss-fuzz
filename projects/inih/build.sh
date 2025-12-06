@@ -15,12 +15,13 @@
 #
 ################################################################################
 
-# Compile the fuzzer binary for oss-fuzz infrastructure.
-$CC $CFLAGS -c ini.c
-$CC $CFLAGS -c inihfuzz.c
-$CXX $CFLAGS $LIB_FUZZING_ENGINE inihfuzz.o ini.o -o inihfuzz
+set -o pipefail
+cp /src/inihfuzz.c .
 
-# Setup for oss-fuzz infrastructure.
-cp inihfuzz $OUT/
-zip -r inihfuzz_seed_corpus.zip tests/*.ini
-mv inihfuzz_seed_corpus.zip $OUT/
+# Compile the fuzzer binary for oss-fuzz infrastructure.
+$CC $CFLAGS -I. -c ini.c -o ini.o
+$CC $CFLAGS -I. -c inihfuzz.c -o inihfuzz.o
+$CXX $CXXFLAGS $LDFLAGS inihfuzz.o ini.o $LIB_FUZZING_ENGINE -o $OUT/inihfuzz
+
+# 种子语料
+zip -j $OUT/inihfuzz_seed_corpus.zip tests/*.ini

@@ -14,8 +14,15 @@
 #
 ################################################################################
 FROM gcr.io/oss-fuzz-base/base-builder
-RUN apt-get update
-RUN git clone https://github.com/Misat0N/inih.git
-COPY inihfuzz.c $SRC/inih/inihfuzz.c
-COPY build.sh $SRC/build.sh
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends zip && \
+    rm -rf /var/lib/apt/lists/*
+
+# 源码放在挂载点，fuzzer 源放在挂载点之外避免被覆盖
+RUN git clone https://github.com/Misat0N/inih.git $SRC/inih
+COPY inihfuzz.c /src/inihfuzz.c
+COPY build.sh /src/build.sh
+
 WORKDIR $SRC/inih/
+
